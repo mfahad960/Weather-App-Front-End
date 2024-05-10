@@ -2,6 +2,7 @@
 .weather-container {
     max-width: 400px;
     margin: auto;
+    margin-top: 60px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -26,6 +27,8 @@
   .weather-title {
     color: #333;
     text-align: center;
+    margin-top: auto;
+    margin-bottom: 25px;
   }
   
   .input-container {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
-import './Weather.css'; // Import the stylesheet
+import './Weather.css';
 
 const Weather = () => {
   const [city, setCity] = useState('');
