@@ -49,7 +49,7 @@ const Weather = () => {
             className="input-field"
           />
         </label>
-        <button onClick={fetchWeather} className="my-button">
+        <button onClick={fetchWeather} className="my-button" id="fetch-button">
           Get Weather
         </button>
       </div>
@@ -58,9 +58,16 @@ const Weather = () => {
         {!error && weatherData && (
           <>
             <h3 className="city-name">Weather in {weatherData.name}</h3>
-            <p className="temperature">
+            <p className="temperature" id='temp'>
               Temperature: {convertTemperature(weatherData.main.temp)}°
               {isCelsius ? 'C' : 'F'}
+            </p>
+            <p className="temperature" id='feels_like'>
+              Feels Like: {convertTemperature(weatherData.main.feels_like)}°
+              {isCelsius ? 'C' : 'F'}
+            </p>
+            <p className="temperature" id='humidity'>
+              Humidity: {weatherData.main.humidity}%
             </p>
             <p className="weather-description">
               Weather: {weatherData.weather[0].description}
@@ -72,7 +79,7 @@ const Weather = () => {
           <p className="error-message">{error}</p>
         )}
 
-        <button onClick={changeUnit} className="my-button">
+        <button onClick={changeUnit} className="my-button" id="unit-button">
           Change Unit
         </button>
       </div>
