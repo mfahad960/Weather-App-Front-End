@@ -1,0 +1,70 @@
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  azureSubscription: 'Azure for Students (b27bb463-5fa8-4fde-a97a-f947c60cf535)'
+  resourceGroupName: 'Devops-Project'
+  location: 'westus'
+  templateFile: 'main.bicep'
+  WebApp1: 'weatherbackendapi'
+  WebApp2: 'weatherreactapp'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
+
+# Clone the frontend repository
+# - script: |
+#     git clone https://github.com/mfahad960/Weather-App-Front-End.git frontend
+#   displayName: 'Clone Frontend Repository'
+
+#Install and build frontend
+- script: |
+    npm install
+    npm run build
+  displayName: 'Install and Build Frontend'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive build'
+  inputs:
+    rootFolderOrFile: build
+    includeRootFolder: false
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: $(azureSubscription)
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      # Ensure Azure CLI is updated to support Bicep
+      az bicep upgrade
+
+      # Check if the resource group exists
+      rg_exists=$(az group exists --name '$(resourceGroupName)-RG')
+
+      if [ "$rg_exists" == "true" ]; then
+        echo "Resource group '$(resourceGroupName)-RG' already exists. Skipping deployment."
+      else
+        # Create the resource group if it doesn't exist
+        az group create --name '$(resourceGroupName)-RG' --location $(location)
+
+        # Deploy the Bicep template
+        az deployment group create \
+          --resource-group '$(resourceGroupName)-RG' \
+          --template-file $(templateFile) \
+          --parameters rgName=$(resourceGroupName) rgLocation=$(location) backendName=$(WebApp1) frontendName=$(WebApp2)
+      fi
+  displayName: 'Deploying Bicep template'

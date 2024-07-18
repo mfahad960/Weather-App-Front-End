@@ -1,0 +1,66 @@
+/* Weather.css */
+.weather-container {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 60px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+  }
+  .my-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .my-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .weather-title {
+    color: #333;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 25px;
+  }
+  
+  .input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .input-label {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-field {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .weather-info {
+    margin-top: 20px;
+  }
+  
+  .city-name {
+    color: #333;
+    font-size: 18px;
+  }
+  
+  .temperature,
+  .weather-description {
+    color: #555;
+    text-transform: capitalize;
+  }
+  
